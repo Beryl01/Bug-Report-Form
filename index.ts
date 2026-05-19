@@ -1,4 +1,4 @@
-// Defines the shape of a bug report object — every report must have these four fields
+// Defines the data types of the bug report objects
 interface BugReport {
   reporterName: string;
   bugTitle: string;
@@ -14,8 +14,7 @@ function isValidSeverity(value: string): value is SeverityLevel {
   return ["low", "medium", "high", "critical"].includes(value);
 }
 
-// ── DOM elements ──────────────────────────────────────────────────────────────
-
+// The DOM elements 
 const nameInput        = document.getElementById("reporter-name") as HTMLInputElement;
 const titleInput       = document.getElementById("bug-title")     as HTMLInputElement;
 const severityInput    = document.getElementById("severity")      as HTMLSelectElement;
@@ -25,13 +24,12 @@ const successMessage   = document.getElementById("success-message") as HTMLDivEl
 const submittedReport  = document.getElementById("submitted-report") as HTMLDivElement;
 const allReports       = document.getElementById("all-reports")   as HTMLDivElement;
 
-// Error message elements shown below each field
+// Error message shown below each field
 const nameError        = document.getElementById("name-error")        as HTMLParagraphElement;
 const titleError       = document.getElementById("title-error")       as HTMLParagraphElement;
 const severityError    = document.getElementById("severity-error")    as HTMLParagraphElement;
 const descriptionError = document.getElementById("description-error") as HTMLParagraphElement;
 
-// ── Error display helper ──────────────────────────────────────────────────────
 
 // Shows or hides the error message under a field
 function showError(errorEl: HTMLElement, show: boolean): void {
@@ -42,8 +40,7 @@ function showError(errorEl: HTMLElement, show: boolean): void {
   }
 }
 
-// ── Validation ────────────────────────────────────────────────────────────────
-
+// Ensuring Validations
 function validateForm(): boolean {
   let isValid = true;
 
@@ -83,9 +80,8 @@ function validateForm(): boolean {
   return isValid;
 }
 
-// ── localStorage: save and load ───────────────────────────────────────────────
 
-// Loads all saved reports from localStorage. Returns an empty array if none exist.
+// Loads all saved reports 
 function loadReports(): BugReport[] {
   const data = localStorage.getItem("bugReports");
   if (data === null) return [];
@@ -99,7 +95,7 @@ function saveReport(report: BugReport): void {
   localStorage.setItem("bugReports", JSON.stringify(existing));
 }
 
-// ── Display ───────────────────────────────────────────────────────────────────
+
 
 // Shows the report that was just submitted at the top of the page
 function displayCurrentReport(report: BugReport): void {
@@ -116,7 +112,7 @@ function displayCurrentReport(report: BugReport): void {
   submittedReport.style.display = "block";
 }
 
-// Renders the full list of saved reports below the form
+// Shows the full list of saved reports below the form
 function displayAllReports(): void {
   const reports = loadReports();
 
@@ -154,8 +150,7 @@ function displayAllReports(): void {
   });
 }
 
-// ── Submit handler ────────────────────────────────────────────────────────────
-
+// Submit handler 
 submitBtn.addEventListener("click", () => {
   const valid = validateForm();
   if (!valid) return;
@@ -180,5 +175,3 @@ submitBtn.addEventListener("click", () => {
   descriptionInput.value = "";
 });
 
-// ── On page load: show any previously saved reports ───────────────────────────
-displayAllReports();

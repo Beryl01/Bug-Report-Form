@@ -1,10 +1,9 @@
 "use strict";
-// Checks if the severity value from the form is one of the valid options
+// Checks if the severity value from the form is one of our valid options
 function isValidSeverity(value) {
     return ["low", "medium", "high", "critical"].includes(value);
 }
-
-// My DOM elements 
+// The DOM elements 
 const nameInput = document.getElementById("reporter-name");
 const titleInput = document.getElementById("bug-title");
 const severityInput = document.getElementById("severity");
@@ -13,15 +12,12 @@ const submitBtn = document.getElementById("submit-btn");
 const successMessage = document.getElementById("success-message");
 const submittedReport = document.getElementById("submitted-report");
 const allReports = document.getElementById("all-reports");
-
-// Error messages and elements shown below each field
+// Error message shown below each field
 const nameError = document.getElementById("name-error");
 const titleError = document.getElementById("title-error");
 const severityError = document.getElementById("severity-error");
 const descriptionError = document.getElementById("description-error");
-
-
-// Error display helper. Shows or hides the error message under a field
+// Shows or hides the error message under a field
 function showError(errorEl, show) {
     if (show) {
         errorEl.classList.add("visible");
@@ -30,7 +26,7 @@ function showError(errorEl, show) {
         errorEl.classList.remove("visible");
     }
 }
-// The Validations 
+// Ensuring Validations
 function validateForm() {
     let isValid = true;
     const name = nameInput.value.trim();
@@ -67,8 +63,6 @@ function validateForm() {
     }
     return isValid;
 }
-
-
 // Loads all saved reports 
 function loadReports() {
     const data = localStorage.getItem("bugReports");
@@ -76,16 +70,12 @@ function loadReports() {
         return [];
     return JSON.parse(data);
 }
-
-
 // Adds a new report to the saved list in localStorage
 function saveReport(report) {
     const existing = loadReports();
     existing.push(report);
     localStorage.setItem("bugReports", JSON.stringify(existing));
 }
-
-
 // Shows the report that was just submitted at the top of the page
 function displayCurrentReport(report) {
     const outName = document.getElementById("out-name");
@@ -98,8 +88,7 @@ function displayCurrentReport(report) {
     outDescription.textContent = report.description;
     submittedReport.style.display = "block";
 }
-
-// Full list of saved reports below the form
+// Shows the full list of saved reports below the form
 function displayAllReports() {
     const reports = loadReports();
     if (reports.length === 0) {
@@ -129,8 +118,6 @@ function displayAllReports() {
         allReports.appendChild(card);
     });
 }
-
-
 // Submit handler 
 submitBtn.addEventListener("click", () => {
     const valid = validateForm();
@@ -146,15 +133,9 @@ submitBtn.addEventListener("click", () => {
     displayCurrentReport(report);
     displayAllReports();
     successMessage.style.display = "block";
-
-    
     // Clear the form fields after a successful submit
     nameInput.value = "";
     titleInput.value = "";
     severityInput.value = "";
     descriptionInput.value = "";
 });
-
-
-// Show any previously saved reports 
-displayAllReports();
