@@ -135,11 +135,46 @@
       font-weight: 600;
       color: #1a1a2e;
     }
+
+    #all-reports {
+      margin-top: 32px;
+      display: none;
+    }
+
+    #all-reports h3 {
+      font-size: 15px;
+      color: #1a1a2e;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 8px;
+    }
+
+    .saved-report-card {
+      background: #f9f9f9;
+      border: 1px solid #e2e2e2;
+      border-radius: 6px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    .saved-report-card span {
+      font-weight: 600;
+      color: #1a1a2e;
+    }
+
+    .saved-report-card em {
+      color: #4f46e5;
+      font-style: normal;
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>🐛 Bug Report Form</h2>
+    <h2>Bug Report Form</h2>
     <p class="subtitle">Fill in the details below to log a bug</p>
 
     <div class="form-group">
@@ -175,7 +210,7 @@
     <button id="submit-btn">Submit Bug Report</button>
 
     <div id="success-message">
-      ✅ Bug report submitted successfully!
+      Bug report submitted successfully!
     </div>
 
     <div id="submitted-report">
@@ -185,6 +220,8 @@
       <div class="report-item"><span>Severity:</span> <span id="out-severity"></span></div>
       <div class="report-item"><span>Description:</span> <span id="out-description"></span></div>
     </div>
+
+    <div id="all-reports"></div>
   </div>
 
   <script src="index.js"></script>
